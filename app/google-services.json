@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "581555013800",
+    "firebase_url": "https://greenary-db97f.firebaseio.com",
+    "project_id": "greenary-db97f",
+    "storage_bucket": "greenary-db97f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:581555013800:android:fcda12b18df5362f",
+        "android_client_info": {
+          "package_name": "com.chiibi.greenery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "581555013800-t2so3ol0upm9rto79h8kg60gr4jnoso5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chiibi.greenery",
+            "certificate_hash": "4f6d3c6f9e13d419b23824c62b6f3302c35f8a43"
+          }
+        },
+        {
+          "client_id": "581555013800-dmqbelk2jmpqcmv580adj3g7gpmnkcle.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiZr7knAaO6r7kviqHSjddQWo999pIkfM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "581555013800-dmqbelk2jmpqcmv580adj3g7gpmnkcle.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

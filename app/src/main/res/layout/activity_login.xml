@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.chiibi.greenery.LoginActivity">
+
+    <ImageView
+        android:id="@+id/tools_fetil"
+        android:layout_width="99dp"
+        android:layout_height="114dp"
+        android:layout_marginBottom="124dp"
+        android:layout_marginEnd="52dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pot"
+        app:layout_constraintEnd_toEndOf="@+id/pot"
+        app:srcCompat="@drawable/ic_fertilizer"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/pot"
+        android:layout_width="98dp"
+        android:layout_height="134dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="156dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_pot"
+        tools:ignore="VectorDrawableCompat" />
+
+    <ImageView
+        android:id="@+id/tools_water"
+        android:layout_width="161dp"
+        android:layout_height="108dp"
+        android:layout_marginBottom="108dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pot"
+        app:layout_constraintStart_toStartOf="@+id/pot"
+        app:srcCompat="@drawable/ic_water_pot"
+        tools:ignore="VectorDrawableCompat" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:fontFamily="cursive"
+        android:text="Gree"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        android:typeface="normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pot" />
+
+    <TextView
+        android:id="@+id/appName3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="cursive"
+        android:text="nery."
+        android:textColor="@android:color/holo_green_light"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/appName"
+        app:layout_constraintTop_toBottomOf="@+id/pot" />
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_login_button"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="112dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>
