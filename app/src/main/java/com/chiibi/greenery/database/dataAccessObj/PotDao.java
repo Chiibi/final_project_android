@@ -4,8 +4,9 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
-import com.chiibi.greenery.database.entity.PotEntity;
+import com.chiibi.greenery.database.entity.PotCard;
 
 import java.util.List;
 
@@ -13,11 +14,14 @@ import java.util.List;
 public interface PotDao {
 
     @Insert()
-    void addPot(PotEntity pot);
+    void addPot(PotCard potCard);
 
-    @Query("select * from user where uid = :uid")
-    List<PotEntity> loadPotByUID(int uid);
+    @Update
+    void update(PotCard potCard);
+
+    @Query("select * from POT_DETAIL where uid = :uid")
+    List<PotCard> loadPotByUID(String uid);
 
     @Delete
-    void deletePotByPID(PotEntity potEntity);
+    void deletePot(PotCard PotCard);
 }

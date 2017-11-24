@@ -1,20 +1,25 @@
 package com.chiibi.greenery;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.chiibi.greenery.adapters.PotCardAdapter;
+import com.chiibi.greenery.database.entity.PotCard;
 import com.chiibi.greenery.model.UserProfile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
@@ -29,12 +34,14 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
-
-    private static final String DB_NAME = "Greeney";
+    @BindView(R.id.rcv_potCard) RecyclerView rvPotCard;
 
     private TextView displayName;
     private TextView displayEmail;
     private ProfilePictureView displayImg;
+    private PotCardAdapter potCardAdapter;
+
+    public static Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,22 +51,27 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         ButterKnife.bind(this);
 
         initialMainActivityView();
+        setupView();
 
         UserProfile userProfile = new UserProfile();
-        displayName.setText(userProfile.getProfileID());
+        displayName.setText(userProfile.getDisplayName());
         displayEmail.setText(userProfile.getEmail());
         displayImg.setProfileId(userProfile.getProfileID());
 
     }
 
-    
+    private void setupView() {
+        rvPotCard.setLayoutManager(new LinearLayoutManager(this));
+        potCardAdapter = new PotCardAdapter(this);
+        rvPotCard.setAdapter(potCardAdapter);
+    }
+
     public void initialMainActivityView(){
         setSupportActionBar(toolbar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Fab", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                EditPot(null, EditActivity.class);
             }
         });
 
@@ -89,21 +101,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -111,7 +108,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         int id = item.getItemId();
 
         if (id == R.id.nav_profile) {
-            // Handle the camera action
+
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_share) {
@@ -130,5 +127,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         Intent intent = new Intent(this, activity);
         startActivity(intent);
         finish();
+    }
+
+    private void EditPot(@Nullable PotCard potCard, Class activity){
+        Intent intent = new Intent(MainActivity.this, activity);
+//        intent.putExtra(PotCard.class.getSimpleName(), potCard);
+        startActivity(intent);
     }
 }

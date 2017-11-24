@@ -6,5 +6,9 @@
 
     <color name="angel_white">#ffffff</color>
     <color name="jet_black">#222222</color>
+    <color name="fbutton_color_emerald">#2ecc71</color>
+    <color name="fbutton_color_nephritis">#27ae60</color>
+    <color name="fbutton_color_alizarin">#e74c3c</color>
+    <color name="fbutton_color_pomegranate">#c0392b</color>
 
 </resources>

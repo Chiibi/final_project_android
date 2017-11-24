@@ -40,10 +40,11 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:11.6.0'
     compile 'com.google.android.gms:play-services-auth:11.6.0'
     compile 'com.jakewharton:butterknife:8.8.1'
+    compile 'com.rengwuxian.materialedittext:library:2.1.4'
+    compile('com.sangcomz:FishBun:0.7.7@aar') { transitive = true }
 
 
 }
-
 
 
 

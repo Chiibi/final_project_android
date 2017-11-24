@@ -1,4 +1,4 @@
-package com.chiibi.greenery.holder;
+package com.chiibi.greenery.adapters.holder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
