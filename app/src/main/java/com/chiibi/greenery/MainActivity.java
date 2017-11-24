@@ -15,12 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.facebook.Profile;
+import com.chiibi.greenery.model.UserProfile;
 import com.facebook.login.LoginManager;
+import com.facebook.login.widget.ProfilePictureView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,9 +30,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
 
-    private String fbFirstName;
-    private String fbLastName;
-    private String email;
+    private static final String DB_NAME = "Greeney";
+
+    private TextView displayName;
+    private TextView displayEmail;
+    private ProfilePictureView displayImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,37 +45,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         initialMainActivityView();
 
-    }
-    public void initialFirebaseDB(){
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-        myRef.setValue("Hello, World!");
+        UserProfile userProfile = new UserProfile();
+        displayName.setText(userProfile.getProfileID());
+        displayEmail.setText(userProfile.getEmail());
+        displayImg.setProfileId(userProfile.getProfileID());
+
     }
 
-    private void getFacebookProfile() {
-        Profile profile = Profile.getCurrentProfile();
-        if (profile != null) {
-            fbFirstName = profile.getFirstName();
-            fbLastName = profile.getLastName();
-        }
-    }
-
-    private void getGoogleProfile(){
-        FirebaseUser profile = FirebaseAuth.getInstance().getCurrentUser();
-        if(profile != null) {
-            email = profile.getEmail();
-        }
-    }
-
+    
     public void initialMainActivityView(){
-        getFacebookProfile();
-        getGoogleProfile();
-
         setSupportActionBar(toolbar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Fab", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -84,12 +67,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        TextView tvName = navigationView.getHeaderView(0).findViewById(R.id.tViewName);
-        TextView tvEmail = navigationView.getHeaderView(0).findViewById(R.id.tViewEmail);
-
-
-        tvName.setText(fbFirstName+" "+fbLastName);
-        tvEmail.setText(email);
+        this.displayName = navigationView.getHeaderView(0).findViewById(R.id.tViewName);
+        this.displayEmail = navigationView.getHeaderView(0).findViewById(R.id.tViewEmail);
+        this.displayImg = navigationView.getHeaderView(0).findViewById(R.id.profilePicture);
 
         navigationView.setNavigationItemSelectedListener(this);
     }
