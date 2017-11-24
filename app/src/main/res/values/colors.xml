@@ -3,4 +3,8 @@
     <color name="colorPrimary">#7f613c</color>
     <color name="colorPrimaryDark">#5e472a</color>
     <color name="colorAccent">#63e642</color>
+
+    <color name="angel_white">#ffffff</color>
+    <color name="jet_black">#222222</color>
+
 </resources>
