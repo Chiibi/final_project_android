@@ -13,12 +13,14 @@ import butterknife.ButterKnife;
 
 public class PotCardViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.img_pot) ImageView imgPot;
-    @BindView(R.id.tv_pot_name) TextView tvPotName;
-    @BindView(R.id.tv_last_activity) TextView tvLastActivity;
+    public ImageView imgPot;
+    public TextView tvPotName;
+    public TextView tvLastActivity;
 
     public PotCardViewHolder(View itemView) {
         super(itemView);
-        ButterKnife.bind(itemView);
+        imgPot = itemView.findViewById(R.id.img_pot);
+        tvPotName = itemView.findViewById(R.id.tv_pot_name);
+        tvLastActivity = itemView.findViewById(R.id.tv_last_activity);
     }
 }

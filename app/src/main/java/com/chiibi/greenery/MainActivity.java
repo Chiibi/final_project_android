@@ -1,6 +1,7 @@
 package com.chiibi.greenery;
 
 import android.app.Activity;
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,11 +20,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chiibi.greenery.adapters.PotCardAdapter;
+import com.chiibi.greenery.adapters.RecyclerItemOnClickAdapter;
+import com.chiibi.greenery.database.GreeneryDB;
 import com.chiibi.greenery.database.entity.PotCard;
 import com.chiibi.greenery.model.UserProfile;
+import com.chiibi.greenery.task.FetchPotCardTask;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,12 +42,14 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @BindView(R.id.nav_view) NavigationView navigationView;
     @BindView(R.id.rcv_potCard) RecyclerView rvPotCard;
 
+    private static final String DB_NAME = "Greeney";
+
     private TextView displayName;
     private TextView displayEmail;
     private ProfilePictureView displayImg;
     private PotCardAdapter potCardAdapter;
-
-    public static Activity activity;
+    private GreeneryDB greeneryDB;
+    private UserProfile userProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +57,18 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         setContentView(R.layout.activity_nav);
 
         ButterKnife.bind(this);
-
-        initialMainActivityView();
         setupView();
+        buildDb();
+        setupData();
+    }
 
-        UserProfile userProfile = new UserProfile();
-        displayName.setText(userProfile.getDisplayName());
-        displayEmail.setText(userProfile.getEmail());
-        displayImg.setProfileId(userProfile.getProfileID());
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPotCard();
     }
 
     private void setupView() {
-        rvPotCard.setLayoutManager(new LinearLayoutManager(this));
-        potCardAdapter = new PotCardAdapter(this);
-        rvPotCard.setAdapter(potCardAdapter);
-    }
-
-    public void initialMainActivityView(){
         setSupportActionBar(toolbar);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +86,48 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         this.displayImg = navigationView.getHeaderView(0).findViewById(R.id.profilePicture);
 
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    private void buildDb() {
+        greeneryDB = Room.databaseBuilder(this, GreeneryDB.class, DB_NAME)
+                .allowMainThreadQueries()
+                .build();
+    }
+
+    private void setupData() {
+        userProfile = new UserProfile();
+        displayImg.setProfileId(userProfile.getProfileID());
+        displayName.setText(userProfile.getDisplayName());
+        displayEmail.setText(userProfile.getEmail());
+
+        potCardAdapter = new PotCardAdapter(this);
+        rvPotCard.setLayoutManager(new LinearLayoutManager(this));
+        rvPotCard.setAdapter(potCardAdapter);
+        rvPotCard.addOnItemTouchListener(new RecyclerItemOnClickAdapter(this, rvPotCard, new RecyclerItemOnClickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        EditPot(potCardAdapter.getPotCardList().get(position), EditActivity.class);
+                    }
+                })
+        );
+    }
+
+    private void loadPotCard(){
+        new FetchPotCardTask(userProfile.getProfileID(), greeneryDB, new FetchPotCardTask.OnFetchSuccessListener() {
+            @Override
+            public void onFetchSuccess(List<PotCard> potCardList) {
+                refreshData(potCardList);
+            }
+
+            private void refreshData(List<PotCard> potCardList) {
+                if(potCardList.size() == 0){
+
+                } else {
+                    potCardAdapter.setPotCardList(potCardList);
+                    potCardAdapter.notifyDataSetChanged();
+                }
+            }
+        }).execute();
     }
 
     @Override
@@ -131,7 +175,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
     private void EditPot(@Nullable PotCard potCard, Class activity){
         Intent intent = new Intent(MainActivity.this, activity);
-//        intent.putExtra(PotCard.class.getSimpleName(), potCard);
+        intent.putExtra(PotCard.class.getSimpleName(), potCard);
         startActivity(intent);
     }
 }

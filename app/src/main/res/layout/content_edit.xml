@@ -20,9 +20,11 @@
 
     <ImageButton
         android:id="@+id/imageButton"
-        android:layout_width="138dp"
+        android:layout_width="137dp"
         android:layout_height="130dp"
         android:layout_gravity="center"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
         app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <com.rengwuxian.materialedittext.MaterialEditText

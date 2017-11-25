@@ -42,6 +42,9 @@ public class PotCardAdapter extends RecyclerView.Adapter<PotCardViewHolder> {
     private void setupPotCard(PotCardViewHolder holder, int position) {
         PotCard potCard = potCardList.get(position);
 
+        holder.imgPot.setImageURI(potCard.getImgUri());
+        holder.tvPotName.setText(potCard.getPotName());
+        holder.tvLastActivity.setText(potCard.getNote());
     }
 
     public void setPotCardList(List<PotCard> potCardList) {

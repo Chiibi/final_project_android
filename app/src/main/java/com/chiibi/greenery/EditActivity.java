@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.chiibi.greenery.database.GreeneryDB;
 import com.chiibi.greenery.database.entity.PotCard;
@@ -66,6 +67,7 @@ public class EditActivity extends AppCompatActivity {
             setTitle(getString(R.string.title_editPot));
             edtPotName.setText(mPotcard.getPotName());
             edtNote.setText(mPotcard.getNote());
+            imageButton.setImageURI(mPotcard.getImgUri());
             btnSave.setText(getString(R.string.button_save));
             btnDelete.setEnabled(true);
         } else {
@@ -96,6 +98,7 @@ public class EditActivity extends AppCompatActivity {
                 finish();
             }
         }).execute(mPotcard);
+        redirectTo(MainActivity.class);
     }
 
     @OnClick(R.id.btn_save) void submit(){
@@ -118,7 +121,7 @@ public class EditActivity extends AppCompatActivity {
                 public void onUpdateSuccess() {
                     finish();
                 }
-            }).execute(potCard);
+            }).execute(mPotcard);
         } else {
             new AddPotCardTask(greeneryDB, new AddPotCardTask.OnAddSuccessListener() {
                 @Override
@@ -136,12 +139,18 @@ public class EditActivity extends AppCompatActivity {
             case Define.ALBUM_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     ArrayList<Uri> path = data.getParcelableArrayListExtra(Define.INTENT_PATH);
-                    this.imgPotTmp = path.get(0);
+                    imgPotTmp = path.get(0);
                     if(path != null){
                         imageButton.setImageURI(path.get(0));
                         break;
                     }
                 }
         }
+    }
+
+    private void redirectTo(Class activity){
+        Intent intent = new Intent(this, activity);
+        startActivity(intent);
+        finish();
     }
 }

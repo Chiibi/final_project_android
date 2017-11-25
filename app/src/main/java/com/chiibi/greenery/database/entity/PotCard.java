@@ -27,6 +27,10 @@ public class PotCard implements Parcelable {
         this.note = note;
     }
 
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
     public int getPid() {
         return pid;
     }
