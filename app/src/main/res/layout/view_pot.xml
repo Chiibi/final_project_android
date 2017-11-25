@@ -11,8 +11,10 @@
     android:background="@color/angel_white"
     android:paddingBottom="@dimen/margin_padding"
     android:paddingEnd="@dimen/margin_padding_large"
-    android:paddingStart="@dimen/margin_padding_large"
-    android:paddingTop="@dimen/margin_padding">
+    android:paddingStart="@dimen/margin_padding"
+    android:paddingTop="@dimen/margin_padding"
+    android:elevation="2dp"
+    android:outlineProvider="bounds">
 
     <ImageView
         android:id="@+id/img_pot"

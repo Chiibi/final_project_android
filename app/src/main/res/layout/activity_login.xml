@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.chiibi.greenery.LoginActivity">
+    tools:context="com.chiibi.greenery.LoginActivity"
+    android:background="@color/colorPrimary">
 
     <ImageView
         android:id="@+id/tools_fetil"
@@ -15,7 +16,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/pot"
         app:layout_constraintEnd_toEndOf="@+id/pot"
         app:srcCompat="@drawable/ic_fertilizer"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:elevation="2dp"
+        android:outlineProvider="background"/>
 
     <ImageView
         android:id="@+id/pot"
@@ -26,7 +29,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_pot"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:elevation="4dp"
+        android:outlineProvider="background"/>
 
     <ImageView
         android:id="@+id/tools_water"
@@ -37,7 +42,9 @@
         app:layout_constraintBottom_toBottomOf="@+id/pot"
         app:layout_constraintStart_toStartOf="@+id/pot"
         app:srcCompat="@drawable/ic_water_pot"
-        tools:ignore="VectorDrawableCompat" />
+        tools:ignore="VectorDrawableCompat"
+        android:elevation="8dp"
+        android:outlineProvider="background"/>
 
     <TextView
         android:id="@+id/appName"
@@ -49,7 +56,7 @@
         android:textStyle="bold"
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintHorizontal_bias="0.248"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pot" />
 
@@ -57,7 +64,7 @@
         android:id="@+id/appName3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="nery."
+        android:text="nery"
         android:textColor="@android:color/holo_green_light"
         android:textSize="60sp"
         android:textStyle="bold"
@@ -74,6 +81,8 @@
         android:layout_marginBottom="112dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="2dp"
+        android:outlineProvider="bounds"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -5,24 +5,20 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Profile" />
+            android:id="@+id/nav_addpot"
+            android:icon="@drawable/ic_local_florist_black_24px"
+            android:title="New Pot" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_share"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Share" />
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_black_24px"
+            android:title="About app" />
     </group>
 
-    <item android:title="Social">
+    <item android:title="Account">
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/ic_vpn_key_black_24px"
                 android:title="Logout" />
         </menu>
     </item>
