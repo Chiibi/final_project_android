@@ -14,5 +14,7 @@
     <string name="button_add">Add</string>
     <string name="button_save">Save</string>
     <string name="button_del">Delete</string>
+    <string name="task">Task</string>
+    <string name="period">Period</string>
 
 </resources>

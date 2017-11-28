@@ -2,9 +2,7 @@ package com.chiibi.greenery;
 
 import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -27,7 +24,11 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import com.sangcomz.fishbun.FishBun;
 import com.sangcomz.fishbun.define.Define;
 
+import org.angmarch.views.NiceSpinner;
+
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +42,11 @@ public class EditActivity extends AppCompatActivity {
     @BindView(R.id.edt_note) MaterialEditText edtNote;
     @BindView(R.id.btn_del) Button btnDelete;
     @BindView(R.id.btn_save) Button btnSave;
+    @BindView(R.id.spin_task) NiceSpinner spinTask;
+    @BindView(R.id.spin_period) NiceSpinner spinPeriod;
+
+    public static final List<String> taskDataset = new ArrayList<>(Arrays.asList("Task", "Water", "Fertilize", "Weed", "Repot", "Plant", "Prune", "Spray", "Thin", "New Soil", "Harvest"));
+    public static final List<String> periodDataset = new ArrayList<>(Arrays.asList("Period", "Every Day", "Every week", "Every month", "Every year"));
 
     private static final String DB_NAME = "Greeney";
 
@@ -68,10 +74,10 @@ public class EditActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.btn_share:
-                if(mPotcard.getImgUri() != null){
+                if(imgPotTmp != null){
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_SEND);
                     intent.putExtra(intent.EXTRA_STREAM, mPotcard.getImgUri());
@@ -80,7 +86,6 @@ public class EditActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(this, "Please select photo", Toast.LENGTH_SHORT).show();
                 }
-                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -94,6 +99,8 @@ public class EditActivity extends AppCompatActivity {
     private void setupView(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        spinTask.attachDataSource(taskDataset);
+        spinPeriod.attachDataSource(periodDataset);
     }
 
     private void setupData(){
@@ -103,9 +110,13 @@ public class EditActivity extends AppCompatActivity {
             setTitle(getString(R.string.title_editPot));
             edtPotName.setText(mPotcard.getPotName());
             edtNote.setText(mPotcard.getNote());
-            imageButton.setImageURI(mPotcard.getImgUri());
+            imgPotTmp = mPotcard.getImgUri();
+            imageButton.setImageURI(imgPotTmp);
             btnSave.setText(getString(R.string.button_save));
             btnDelete.setEnabled(true);
+            spinTask.setSelectedIndex(mPotcard.getTask());
+            spinPeriod.setSelectedIndex(mPotcard.getPeriod());
+
         } else {
             setTitle(getString(R.string.title_addPot));
             btnSave.setText(getString(R.string.button_add));
@@ -142,13 +153,17 @@ public class EditActivity extends AppCompatActivity {
         String potName;
         String potNote;
         String uid;
+        int task;
+        int period;
 
         potName = edtPotName.getText().toString();
         potNote = edtNote.getText().toString();
         uid = userProfile.getProfileID();
         imgPot = imgPotTmp;
+        task = spinTask.getSelectedIndex();
+        period = spinPeriod.getSelectedIndex();
 
-        PotCard potCard = new PotCard(uid, imgPot, potName, potNote);
+        PotCard potCard = new PotCard(uid, imgPot, potName, potNote, task, period);
 
         if(mPotcard != null){
             mPotcard.updateInfo(potCard);
@@ -175,9 +190,9 @@ public class EditActivity extends AppCompatActivity {
             case Define.ALBUM_REQUEST_CODE:
                 if (resultCode == RESULT_OK) {
                     ArrayList<Uri> path = data.getParcelableArrayListExtra(Define.INTENT_PATH);
-                    imgPotTmp = path.get(0);
                     if(path != null){
-                        imageButton.setImageURI(path.get(0));
+                        imgPotTmp = path.get(0);
+                        imageButton.setImageURI(imgPotTmp);
                         break;
                     }
                 }

@@ -16,15 +16,20 @@ public class PotCard implements Parcelable {
     private Uri imgUri;
     private String potName;
     private String note;
+    private int task;
+    private int period;
+
 
     public PotCard() {
     }
 
-    public PotCard(String uid, Uri imgUri, String potName, String note) {
+    public PotCard(String uid, Uri imgUri, String potName, String note, int task, int period) {
         this.uid = uid;
         this.imgUri = imgUri;
         this.potName = potName;
         this.note = note;
+        this.task = task;
+        this.period = period;
     }
 
     public void setPid(int pid) {
@@ -67,11 +72,29 @@ public class PotCard implements Parcelable {
         this.note = note;
     }
 
+    public int getTask() {
+        return task;
+    }
+
+    public void setTask(int task) {
+        this.task = task;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
     public void updateInfo(PotCard potCard) {
         this.imgUri  = potCard.getImgUri();
         this.potName = potCard.getPotName();
         this.note    = potCard.getNote();
         this.uid     = potCard.getUid();
+        this.task    = potCard.getTask();
+        this.period  = potCard.getPeriod();
     }
 
     @Override
@@ -86,6 +109,8 @@ public class PotCard implements Parcelable {
         dest.writeParcelable(this.imgUri, flags);
         dest.writeString(this.potName);
         dest.writeString(this.note);
+        dest.writeInt(this.task);
+        dest.writeInt(this.period);
     }
 
     protected PotCard(Parcel in) {
@@ -94,6 +119,8 @@ public class PotCard implements Parcelable {
         this.imgUri = in.readParcelable(Uri.class.getClassLoader());
         this.potName = in.readString();
         this.note = in.readString();
+        this.task = in.readInt();
+        this.period = in.readInt();
     }
 
     public static final Creator<PotCard> CREATOR = new Creator<PotCard>() {

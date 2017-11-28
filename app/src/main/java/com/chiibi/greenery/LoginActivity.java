@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -21,6 +22,10 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity{
 
     private static final String TAG = "LoginActivity";
@@ -28,11 +33,16 @@ public class LoginActivity extends AppCompatActivity{
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    @BindView(R.id.rootview_login) View rootView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        ButterKnife.bind(this);
+
         mAuth = FirebaseAuth.getInstance();
         initialFacebookLogin();
     }
@@ -49,7 +59,7 @@ public class LoginActivity extends AppCompatActivity{
     public void initialFacebookLogin(){
         mCallbackManager = CallbackManager.Factory.create();
 
-        LoginButton loginButton = findViewById(R.id.facebook_login_button) ;
+        final LoginButton loginButton = findViewById(R.id.facebook_login_button) ;
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -57,6 +67,7 @@ public class LoginActivity extends AppCompatActivity{
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 mAuth = FirebaseAuth.getInstance();
                 AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getAccessToken().getToken());
+                loginButton.setClickable(false);
                 handleFacebookAccessToken(credential);
             }
 
@@ -78,7 +89,6 @@ public class LoginActivity extends AppCompatActivity{
 
     private void handleFacebookAccessToken(AuthCredential credential) {
         Log.d(TAG, "handleFacebookAccessToken:" + credential);
-
         mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -94,8 +104,8 @@ public class LoginActivity extends AppCompatActivity{
 
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
+
                         }
-                        // ...
                     }
                 });
     }

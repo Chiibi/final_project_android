@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chiibi.greenery.EditActivity;
 import com.chiibi.greenery.R;
 import com.chiibi.greenery.adapters.holder.PotCardViewHolder;
 import com.chiibi.greenery.database.entity.PotCard;
@@ -45,6 +46,8 @@ public class PotCardAdapter extends RecyclerView.Adapter<PotCardViewHolder> {
         holder.imgPot.setImageURI(potCard.getImgUri());
         holder.tvPotName.setText(potCard.getPotName());
         holder.tvLastActivity.setText(potCard.getNote());
+        holder.tvTask.setText(EditActivity.taskDataset.get(potCard.getTask()));
+        holder.tvPeriod.setText(EditActivity.periodDataset.get(potCard.getPeriod()));
     }
 
     public void setPotCardList(List<PotCard> potCardList) {

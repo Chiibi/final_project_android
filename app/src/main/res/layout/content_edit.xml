@@ -25,7 +25,7 @@
         android:layout_gravity="center"
         android:adjustViewBounds="true"
         android:cropToPadding="true"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:srcCompat="@drawable/ic_add_a_photo_white_24dp" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/edt_potName"
@@ -49,8 +49,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="2"
-        android:layout_marginTop="@dimen/margin_padding_extra_large"
+        android:layout_marginTop="@dimen/margin_padding"
+        android:layout_marginBottom="@dimen/margin_padding"
         android:orientation="horizontal">
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spin_task"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:arrowTint="@color/colorPrimaryDark"
+            android:layout_marginEnd="@dimen/margin_padding_small"
+            android:layout_marginBottom="@dimen/margin_padding"
+            android:layout_weight="1"
+            android:elevation="4dp"
+            android:outlineProvider="bounds"
+            android:hint="Task"/>
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spin_period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:arrowTint="@color/colorPrimaryDark"
+            android:layout_marginStart="@dimen/margin_padding_small"
+            android:layout_marginBottom="@dimen/margin_padding"
+            android:layout_weight="1"
+            android:elevation="4dp"
+            android:outlineProvider="bounds"
+            android:hint="Period"/>/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:layout_marginTop="@dimen/margin_padding_extra_large"
+        android:layout_marginBottom="@dimen/margin_padding"
+        android:orientation="horizontal"
+        android:background="@color/angel_white">
 
         <Button
             android:id="@+id/btn_del"
@@ -59,16 +95,22 @@
             android:layout_weight="1"
             android:layout_marginStart="@dimen/margin_padding_small"
             android:layout_marginEnd="@dimen/margin_padding_small"
-            android:text="Delete"/>
+            android:background="@color/fbutton_color_alizarin"
+            android:text="Delete"
+            android:elevation="4dp"
+            android:outlineProvider="bounds"/>
 
         <Button
             android:id="@+id/btn_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/fbutton_color_nephritis"
             android:layout_marginStart="@dimen/margin_padding_small"
             android:layout_marginEnd="@dimen/margin_padding_small"
-            android:text="Add"/>
+            android:text="Add"
+            android:elevation="4dp"
+            android:outlineProvider="bounds"/>
 
     </LinearLayout>
 </LinearLayout>

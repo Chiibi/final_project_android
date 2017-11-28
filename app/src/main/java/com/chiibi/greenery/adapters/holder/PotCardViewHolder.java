@@ -16,11 +16,15 @@ public class PotCardViewHolder extends RecyclerView.ViewHolder {
     public ImageView imgPot;
     public TextView tvPotName;
     public TextView tvLastActivity;
+    public TextView tvTask;
+    public TextView tvPeriod;
 
     public PotCardViewHolder(View itemView) {
         super(itemView);
         imgPot = itemView.findViewById(R.id.img_pot);
         tvPotName = itemView.findViewById(R.id.tv_pot_name);
         tvLastActivity = itemView.findViewById(R.id.tv_last_activity);
+        tvTask = itemView.findViewById(R.id.tv_task);
+        tvPeriod = itemView.findViewById(R.id.tv_period);
     }
 }

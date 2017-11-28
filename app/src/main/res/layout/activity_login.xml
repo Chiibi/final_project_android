@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.chiibi.greenery.LoginActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:id="@+id/rootview_login">
 
     <ImageView
         android:id="@+id/tools_fetil"

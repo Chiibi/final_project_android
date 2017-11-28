@@ -46,5 +46,34 @@
             android:textSize="@dimen/text_size_small"
             android:text="Watered 1 day(s) ago"
             android:layout_marginBottom="@dimen/margin_padding"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_padding"
+            android:layout_weight="3"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_task"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fbutton_color_alizarin"
+                android:textSize="@dimen/text_size"
+                android:layout_weight="2"
+                android:text="Water" />
+
+            <TextView
+                android:id="@+id/tv_period"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/fbutton_color_alizarin"
+                android:textSize="@dimen/text_size"
+                android:layout_weight="1"
+                android:text="Every day"
+/>
+
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
